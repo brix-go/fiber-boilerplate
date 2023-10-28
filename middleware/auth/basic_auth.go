@@ -1,8 +1,10 @@
 package auth
 
 import (
+	"github.com/brix-go/fiber/shared"
 	"github.com/gofiber/fiber/v2"
 	"github.com/gofiber/fiber/v2/middleware/basicauth"
+	"github.com/pkg/errors"
 )
 
 func NewBasicAuthMiddleware() basicauth.Config {
@@ -19,8 +21,7 @@ func NewBasicAuthMiddleware() basicauth.Config {
 			return false
 		},
 		Unauthorized: func(ctx *fiber.Ctx) error {
-			resp := dto.ErrorResponse(fiber.StatusUnauthorized, "Forbidden, unauthorized")
-			return ctx.Status(fiber.StatusUnauthorized).JSON(resp)
+			return errors.New(shared.Unauthorized)
 		},
 		ContextPassword: "_pass",
 		ContextUsername: "_user",

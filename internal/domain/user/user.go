@@ -6,7 +6,6 @@ import (
 	"github.com/brix-go/fiber/internal/domain/user/dto/responses"
 	"github.com/gofiber/fiber/v2"
 	"github.com/google/uuid"
-	"golang.org/x/crypto/bcrypt"
 	"gorm.io/gorm"
 )
 
@@ -43,24 +42,6 @@ type UserController interface {
 	GetDetailUserJWT(ctx *fiber.Ctx) error
 	VerifyUser(ctx *fiber.Ctx) error
 	ResendOTP(ctx *fiber.Ctx) error
-}
-
-func (u *User) FromRegistRequest(req *requests.RegisterRequest) User {
-	hashedPass, _ := bcrypt.GenerateFromPassword([]byte(req.Password), bcrypt.MinCost)
-	return User{
-		Email:    req.Email,
-		Password: string(hashedPass),
-		Phone:    req.Phone,
-	}
-}
-
-func (u *User) ToRegisterResponse() responses.RegisterResponse {
-	return responses.RegisterResponse{
-		ID:        u.ID,
-		Email:     u.Email,
-		CreatedAt: u.CreatedAt,
-		UpdatedAt: u.UpdatedAt,
-	}
 }
 
 func (u *User) BeforeCreate(tx *gorm.DB) (err error) {

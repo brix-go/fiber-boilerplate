@@ -3,9 +3,11 @@ package auth
 import (
 	"fmt"
 	"github.com/brix-go/fiber/internal/domain/user"
+	"github.com/brix-go/fiber/shared"
 	jwtware "github.com/gofiber/contrib/jwt"
 	"github.com/gofiber/fiber/v2"
 	"github.com/golang-jwt/jwt/v5"
+	"github.com/pkg/errors"
 	"log"
 )
 
@@ -14,8 +16,7 @@ func NewJWThMiddleware(secret string) fiber.Handler {
 	return jwtware.New(jwtware.Config{
 		SigningKey: jwtware.SigningKey{Key: []byte(secret)},
 		ErrorHandler: func(ctx *fiber.Ctx, err error) error {
-			resp := shared.ErrorResponse(contract.ErrUnauthorized, "Unauthorized", err.Error())
-			return ctx.Status(401).JSON(resp)
+			return errors.New(shared.Unauthorized)
 		},
 	})
 }

@@ -13,13 +13,16 @@ import (
 )
 
 func ConnectDatabase() (*gorm.DB, error) {
-	dsn := fmt.Sprintf("host=%s port=%d user=%s password=%s dbname=%s",
-		config.AppConfig.Database.Host,
-		config.AppConfig.Database.Port,
-		config.AppConfig.Database.Username,
-		config.AppConfig.Database.Password,
-		config.AppConfig.Database.Database,
-	)
+	//dsn := fmt.Sprintf("%s:%s@tcp(%s:%s)/%s?charset=utf8mb4&parseTime=True&loc=Local", config.AppConfig.Database.Host, config.AppConfig.Database.Port, config.AppConfig.Database.Username, config.AppConfig.Database.Password, config.AppConfig.Database.Database)
+	dsn := fmt.Sprintf("postgresql://%s:%s@db:5432/%s?sslmode=disable", config.AppConfig.Database.Username, config.AppConfig.Database.Password, config.AppConfig.Database.Database)
+	//dsn := fmt.Sprintf("host=%s port=%d user=%s password=%s dbname=%s",
+	//	"localhost",
+	//	config.AppConfig.Database.Port,
+	//	config.AppConfig.Database.Username,
+	//	config.AppConfig.Database.Password,
+	//	config.AppConfig.Database.Database,
+	//)
+	fmt.Println("DSN : ", dsn)
 
 	//define database logger
 	dbLogger := logger.New(

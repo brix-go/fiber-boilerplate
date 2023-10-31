@@ -1,12 +1,12 @@
 appconfig:
   name: "fiber-boilerplate"
   host: "0.0.0.0"
-  port: "8882"
+  port: "9999"
   secret: "myVeryStrongSecretPassword64bitLength"
 
 database:
   driver: "postgres"
-  host: "localhost"
+  host: "0.0.0.0"
   port: "5432"
   username: "postgres"
   password: "postgres"

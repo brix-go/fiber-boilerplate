@@ -14,7 +14,7 @@ type User struct {
 	ID         string `gorm:"primary_key"`
 	Email      string
 	Password   string
-	Phone      string
+	Phone      string       `gorm:"uniqueIndex"`
 	VerifiedAt sql.NullTime `gorm:"default:null"`
 }
 

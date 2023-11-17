@@ -6,7 +6,7 @@ appconfig:
 
 database:
   driver: "postgres"
-  host: "0.0.0.0"
+  host: "localhost"
   port: "5432"
   username: "postgres"
   password: "postgres"

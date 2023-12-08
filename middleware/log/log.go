@@ -25,7 +25,6 @@ func LogMiddleware(ctx *fiber.Ctx, logString []byte, logger *infrastructure.LogC
 			requestBody = nil
 		}
 	}
-	fmt.Println("Haii")
 
 	if ctx.Response().Body() != nil {
 		if err := json.Unmarshal(ctx.Response().Body(), &responseBody); err != nil {

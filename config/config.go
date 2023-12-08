@@ -34,6 +34,12 @@ type Config struct {
 	ErrorContract struct {
 		JSONPathFile string `mapstructure:"json_path_file"`
 	} `mapstructure:"errorContract"`
+
+	Kafka struct {
+		Host    string `mapstructure:"host"`
+		GroupId string `mapstructure:"group_id"`
+		Reset   string `mapstructure:"reset"`
+	}
 }
 
 var AppConfig Config

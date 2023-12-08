@@ -5,6 +5,7 @@ import (
 	"github.com/brix-go/fiber/config"
 	redis_client "github.com/brix-go/fiber/infrastructure/Redis"
 	"github.com/brix-go/fiber/infrastructure/database"
+	"github.com/brix-go/fiber/infrastructure/kafka"
 	infrastructure "github.com/brix-go/fiber/infrastructure/log"
 	userController "github.com/brix-go/fiber/internal/domain/user/controller"
 	userRepository "github.com/brix-go/fiber/internal/domain/user/repository"
@@ -27,9 +28,15 @@ func Run() {
 		log.Logrus.Fatal("Failed to read to errorContract.json:", err)
 	}
 
+	// Database
 	db := database.ConnectDatabase()
 
+	// Redis
 	redisClient := redis_client.RedisClient
+
+	// Kafka
+	_ = kafka.NewKafkaConsumer(*log)
+	_ = kafka.NewKafkaProducer(*log)
 
 	app := fiber.New(fiber.Config{
 		ErrorHandler: middleware.ErrorHandler,

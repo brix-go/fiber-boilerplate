@@ -7,43 +7,39 @@ import (
 )
 
 type userRepository struct {
-	db *gorm.DB
 }
 
-func NewRepository(db *gorm.DB) user.UserRepository {
-	return &userRepository{
-		db: db,
-	}
+func NewRepository() user.UserRepository {
+	return &userRepository{}
 }
 
-func (r *userRepository) FindUserByEmail(email string) (user *user.User, err error) {
-	err = r.db.Debug().Take(&user, "email = ?", email).Error
+func (r *userRepository) FindUserByEmail(db *gorm.DB, email string) (user *user.User, err error) {
+	err = db.Debug().Take(&user, "email = ?", email).Error
 	if err != nil {
 		if err == gorm.ErrRecordNotFound {
 
 			return nil, nil
 		}
-
 		return nil, err
 	}
 
 	return user, nil
 }
 
-func (r *userRepository) CreateUser(user *user.User) (*user.User, error) {
-	err := r.db.Debug().Create(&user).Error
+func (r *userRepository) CreateUser(db *gorm.DB, user *user.User) (*user.User, error) {
+	err := db.Debug().Create(&user).Error
 	if err != nil {
 		return nil, err
 	}
 	return user, nil
 }
 
-func (r *userRepository) UpdateUser(updatedUser *user.User) (*user.User, error) {
+func (r *userRepository) UpdateUser(db *gorm.DB, updatedUser *user.User) (*user.User, error) {
 	return updatedUser, nil
 }
 
-func (r *userRepository) GetUserByID(id string) (user *user.User, err error) {
-	err = r.db.Debug().First(&user, "id = ?", id).Error
+func (r *userRepository) GetUserByID(db *gorm.DB, id string) (user *user.User, err error) {
+	err = db.Debug().First(&user, "id = ?", id).Error
 	if err != nil {
 		if err == gorm.ErrRecordNotFound {
 			return user, nil
@@ -53,16 +49,16 @@ func (r *userRepository) GetUserByID(id string) (user *user.User, err error) {
 	return user, nil
 }
 
-func (r *userRepository) GetAllUser() (user []*user.User, err error) {
+func (r *userRepository) GetAllUser(db *gorm.DB) (user []*user.User, err error) {
 	return user, nil
 }
 
-func (r *userRepository) DeleteUser(id string) error {
+func (r *userRepository) DeleteUser(db *gorm.DB, id string) error {
 	return nil
 }
 
-func (r *userRepository) VerifyUser(id string) error {
-	err := r.db.Debug().Model(&user.User{}).Where("id = ?", id).Update("verified_at", time.Now()).Error
+func (r *userRepository) VerifyUser(db *gorm.DB, id string) error {
+	err := db.Debug().Model(&user.User{}).Where("id = ?", id).Update("verified_at", time.Now()).Error
 	if err != nil {
 		return err
 	}

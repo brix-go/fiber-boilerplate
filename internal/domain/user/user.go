@@ -1,6 +1,7 @@
 package user
 
 import (
+	"context"
 	"database/sql"
 	"github.com/brix-go/fiber/internal/domain/user/dto/requests"
 	"github.com/brix-go/fiber/internal/domain/user/dto/responses"
@@ -28,21 +29,21 @@ func NewUser(request requests.RegisterRequest) User {
 }
 
 type UserRepository interface {
-	FindUserByEmail(email string) (*User, error)
-	CreateUser(user *User) (*User, error)
-	UpdateUser(updatedUser *User) (*User, error)
-	GetUserByID(id string) (*User, error)
-	GetAllUser() ([]*User, error)
-	DeleteUser(id string) error
-	VerifyUser(id string) error
+	FindUserByEmail(db *gorm.DB, email string) (*User, error)
+	CreateUser(db *gorm.DB, user *User) (*User, error)
+	UpdateUser(db *gorm.DB, updatedUser *User) (*User, error)
+	GetUserByID(db *gorm.DB, id string) (*User, error)
+	GetAllUser(db *gorm.DB) ([]*User, error)
+	DeleteUser(db *gorm.DB, id string) error
+	VerifyUser(db *gorm.DB, id string) error
 }
 
 type UserService interface {
-	Login(userRequest *requests.LoginRequest) (res *responses.LoginResponse, err error)
-	RegisterUser(userRequest *requests.RegisterRequest) (user *User, err error)
-	GetDetailUserById(id string) (user responses.UserDetail, err error)
-	VerifyUser(verReq requests.VerifiedUserRequest) error
-	ResendOTP(userId string) error
+	Login(ctx context.Context, userRequest *requests.LoginRequest) (res *responses.LoginResponse, err error)
+	RegisterUser(ctx context.Context, userRequest *requests.RegisterRequest) (user *User, err error)
+	GetDetailUserById(ctx context.Context, id string) (user responses.UserDetail, err error)
+	VerifyUser(ctx context.Context, verReq requests.VerifiedUserRequest) error
+	ResendOTP(ctx context.Context, userId string) error
 }
 
 type UserController interface {

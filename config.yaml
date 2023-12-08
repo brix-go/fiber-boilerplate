@@ -23,3 +23,8 @@ log:
 errorcontract:
   json_path_file: "./script/errorContract.json"
 
+kafka:
+  host: "localhost"
+  group_id: ""
+  reset: ""
+

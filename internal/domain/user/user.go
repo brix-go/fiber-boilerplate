@@ -18,6 +18,15 @@ type User struct {
 	VerifiedAt sql.NullTime `gorm:"default:null"`
 }
 
+func NewUser(request requests.RegisterRequest) User {
+	return User{
+		ID:       uuid.NewString(),
+		Email:    request.Email,
+		Password: request.Password,
+		Phone:    request.Phone,
+	}
+}
+
 type UserRepository interface {
 	FindUserByEmail(email string) (*User, error)
 	CreateUser(user *User) (*User, error)

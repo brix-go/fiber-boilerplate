@@ -1,22 +1,22 @@
 package service
 
 import (
+	"github.com/brix-go/fiber/infrastructure/redis"
 	"github.com/brix-go/fiber/internal/domain/user"
 	"github.com/brix-go/fiber/internal/domain/user/dto/requests"
 	"github.com/brix-go/fiber/internal/domain/user/dto/responses"
-	"github.com/redis/go-redis/v9"
 )
 
 type userService struct {
 	repo user.UserRepository
 
-	redisClient *redis.Client
+	redisRepo *redis_client.Repository
 }
 
-func NewService(repo user.UserRepository, redis *redis.Client) user.UserService {
+func NewService(repo user.UserRepository, redis *redis_client.Repository) user.UserService {
 	return &userService{
-		repo:        repo,
-		redisClient: redis,
+		repo:      repo,
+		redisRepo: redis,
 	}
 }
 

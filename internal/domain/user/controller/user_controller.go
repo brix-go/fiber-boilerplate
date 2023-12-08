@@ -54,15 +54,12 @@ func (c *userController) Register(ctx *fiber.Ctx) error {
 
 func (c *userController) GetDetailUserJWT(ctx *fiber.Ctx) error {
 	return middleware.ResponseSuccess(ctx, shared.RespSuccess, nil)
-
 }
 
 func (c *userController) VerifyUser(ctx *fiber.Ctx) error {
 	return middleware.ResponseSuccess(ctx, shared.RespSuccess, nil)
-
 }
 
 func (c *userController) ResendOTP(ctx *fiber.Ctx) error {
 	return middleware.ResponseSuccess(ctx, shared.RespSuccess, nil)
-
 }

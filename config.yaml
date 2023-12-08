@@ -16,7 +16,7 @@ database:
 log:
   host: "localhost"
   port: "9200"
-  index: "ms-briapi-spot-dashboard"
+  index: ""
   user: "elastic"
   pass: "P@ssw0rd"
 

@@ -57,10 +57,10 @@ func Run() {
 
 	//Todo : Define Repository here
 	redisRepo := redis_client.NewRedisRepository(redisClient)
-	userRepo := userRepository.NewRepository(db.DB)
+	userRepo := userRepository.NewRepository()
 
 	//Todo : Define Service here
-	userSvc := userService.NewService(userRepo, &redisRepo)
+	userSvc := userService.NewService(db.DB, userRepo, &redisRepo)
 
 	//Todo: Define controller
 	userCtrl := userController.NewController(userSvc, log)

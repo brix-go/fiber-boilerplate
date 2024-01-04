@@ -39,7 +39,7 @@ func (c *userController) Login(ctx *fiber.Ctx) error {
 		fmt.Println("ERROR : ", fieldErr)
 		return errors.New(fieldErr.Error())
 	}
-	res, err := c.service.Login(&loginReq)
+	res, err := c.service.Login(ctx.Context(), &loginReq)
 	if err != nil {
 
 		return errors.New(shared.ErrUnexpectedError)

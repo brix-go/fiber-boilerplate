@@ -3,10 +3,9 @@ package application
 import (
 	"fmt"
 	"github.com/brix-go/fiber/config"
-	redis_client "github.com/brix-go/fiber/infrastructure/Redis"
 	"github.com/brix-go/fiber/infrastructure/database"
-	"github.com/brix-go/fiber/infrastructure/kafka"
 	infrastructure "github.com/brix-go/fiber/infrastructure/log"
+	redis_client "github.com/brix-go/fiber/infrastructure/redis"
 	userController "github.com/brix-go/fiber/internal/domain/user/controller"
 	userRepository "github.com/brix-go/fiber/internal/domain/user/repository"
 	userService "github.com/brix-go/fiber/internal/domain/user/service"
@@ -31,12 +30,12 @@ func Run() {
 	// Database
 	db := database.ConnectDatabase()
 
-	// Redis
+	// redis
 	redisClient := redis_client.RedisClient
 
-	// Kafka
-	_ = kafka.NewKafkaConsumer(*log)
-	_ = kafka.NewKafkaProducer(*log)
+	//// Kafka
+	//_ = kafka.NewKafkaConsumer(*log)
+	//_ = kafka.NewKafkaProducer(*log)
 
 	app := fiber.New(fiber.Config{
 		ErrorHandler: middleware.ErrorHandler,

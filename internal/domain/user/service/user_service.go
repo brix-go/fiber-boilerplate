@@ -2,7 +2,8 @@ package service
 
 import (
 	"context"
-	"github.com/brix-go/fiber/infrastructure/redis"
+
+	redis_client "github.com/brix-go/fiber/infrastructure/redis"
 	"github.com/brix-go/fiber/internal/domain/user"
 	"github.com/brix-go/fiber/internal/domain/user/dto/requests"
 	"github.com/brix-go/fiber/internal/domain/user/dto/responses"

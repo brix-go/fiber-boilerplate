@@ -31,7 +31,7 @@ services:
       - redis
     environment:
       DD_DB_HOST: db  # Nama host untuk koneksi ke PostgreSQL
-      REDIS_HOST: redis  # Nama host untuk koneksi ke Redis
+      REDIS_HOST: redis  # Nama host untuk koneksi ke redis
 
   adminer:
     image: adminer
